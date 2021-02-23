@@ -7,6 +7,9 @@ from adabelief_pytorch import AdaBelief
 
 def make_optim(net, args):
     
+    if args.phase == 'test':
+        return net, None, None
+
     update_param_list = []
     
 

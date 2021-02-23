@@ -6,13 +6,19 @@ from tqdm import tqdm
 import torch
 
 
-def test_model(net, dataloaders_dict, args):
+def test_model(nets, dataloaders_dict, args):
     
     print('>> test and make submit file')
     
     # GPUが使えるかを確認
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     print("使用デバイス：", device)
+
+    if not isinstance(nets, list):
+        nets = [nets]
+
+    net = nets[0]
+        
     # ネットワークをGPUへ
     net.to(device)
     # ネットワークがある程度固定であれば、高速化させる
@@ -37,8 +43,8 @@ def test_model(net, dataloaders_dict, args):
             if args.use_mse:
                 preds = torch.tensor(np.clip(outputs.detach().cpu().numpy().round(),0,3).astype(np.int))
             else:
-                _, preds = torch.max(outputs, 1).cpu()  # ラベルを予測
-            preds_list = preds.tolist()
+                _, preds = torch.max(outputs, 1)  # ラベルを予測
+            preds_list = preds.cpu().tolist()
 
         for filename, pred in zip(filenames, preds_list):
             results.append([filename, pred])

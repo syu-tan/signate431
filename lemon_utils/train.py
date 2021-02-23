@@ -118,7 +118,7 @@ def train_model(net, dataloaders_dict, criterion, optimizer, scheduler, k_fold, 
             epoch_acc = epoch_corrects.double(
             ) / len(dataloaders_dict[phase].dataset)
 
-            if args.is_k_fold:
+            if args.is_k_fold or args.best_model:
                 # 最高のモデルを保存する
                 if val_loss_best > epoch_loss and phase == 'val':
                     net_best = net.cpu()

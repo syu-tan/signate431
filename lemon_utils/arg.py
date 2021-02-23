@@ -66,7 +66,7 @@ def parse_arguments(argv):
 
 
     # week augmentation
-    parser.add_argument('--aug_croplemon', type=str2bool, nargs='?', const=True, default=True)
+    parser.add_argument('--aug_croplemon', type=str2bool, nargs='?', const=True, default=False)
     parser.add_argument('--aug_rotate', type=str2bool, nargs='?', const=True, default=True)
     parser.add_argument('--aug_rorate_limit', type=int, default=89)
     parser.add_argument('--aug_rorate_p', type=float, default=0.8)

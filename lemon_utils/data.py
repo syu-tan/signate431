@@ -112,7 +112,7 @@ class ImageTransform():
         test_preprocess_list.append(transforms.Normalize(args.mean, args.std))
 
         self.albu_transforms = albu.Compose(train_albu_aug_list)
-        self.test_albu_transforms = albu.Compose(train_albu_aug_list)
+        self.test_albu_transforms = albu.Compose(test_albu_preprocess_list)
         
         self.data_transform = {
             'train': transforms.Compose(train_torch_aug_list),
